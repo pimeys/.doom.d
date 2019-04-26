@@ -1,20 +1,31 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
-(add-to-list 'default-frame-alist '(font . "Inconsolata Nerd Font Mono-18"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata Nerd Font Mono-16"))
+
 (setq rust-format-on-save t)
 
-(add-to-list 'company-backends #'company-tabnine)
-;; Trigger completion immediately.
-(setq company-idle-delay 0)
+(global-set-key (kbd "C-c c") 'flymake-proc-compile)
+(global-set-key (kbd "C-c f") 'projectile-ripgrep)
 
-;; Number the candidates (use M-1, M-2 etc to select completions).
-(setq company-show-numbers t)
+(use-package forge :after magit)
 
-;; Use the tab-and-go frontend.
-;; Allows TAB to select and complete at the same time.
-(company-tng-configure-default)
-(setq company-frontends
-      '(company-tng-frontend
-        company-pseudo-tooltip-frontend
-        company-echo-metadata-frontend))
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+(add-to-list 'custom-theme-load-path "~/.doom.d/themes/")
+
+;; (load-theme 'doom-vibrant t)
+(load-theme 'doom-solarized-dark t)
+;; (set-face-background 'default "unspecified-bg")
+
+;; Enable flashing mode-line on errors
+(doom-themes-visual-bell-config)
+
+;; Enable custom neotree theme (all-the-icons must be installed!)
+(doom-themes-neotree-config)
+;; or for treemacs users
+(doom-themes-treemacs-config)
+
+;; Corrects (and improves) org-mode's native fontification.
+(doom-themes-org-config)
